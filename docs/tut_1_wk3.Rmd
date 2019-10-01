@@ -135,21 +135,33 @@ What would happen with the total cost if:
 ---
 # Transportation problem v2
 
+--
+.pull-left[
+
 - The Northside and Southside facilities of Zeron Industries supply three firms (Zrox, Hewes, Rockrite) with customized shelving for its offices. 
-- Northside and Southside order shelving from the same two manufacturers, Arnold Manufacturers and Supershelf, Inc. 
-- Demands by the users are 50 for Zrox, 60 for Hewes, and 40 for Rockrite. 
+- Northside and Southside order shelving from the same two manufacturers, Arnold and Supershelf. 
+- Demands are 50 for Zrox, 60 for Hewes, and 40 for Rockrite. 
 - Arnold and Supershelf can supply at most 75 units. 
+]
+
+--
+.pull-right[
 - Unit costs from the manufacturers to the suppliers are
 
 |            | Zeron N | Zeron S |
 |------------|:-------:|:-------:|
 | Arnold     |    5    |    8    |
 | Supershelf |    7    |    4    |
+
 - The costs to install the shelving at the various locations are
 
 |         | Zrox | Hewes | Rockrite |
 |---------|:----:|:-----:|:--------:|
 | Zeron N |   1  |   5   |     8    |
 | Zeron S |   3  |   4   |     4    |
- 
-**Find the transportation plan that minimises the costs**
+
+]
+
+--
+
+$\quad\quad$ **Find the transportation plan that minimises the overall costs**
