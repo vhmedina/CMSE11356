@@ -1,8 +1,10 @@
 ---
 title: "Prescriptive Analytics with Mathematical Programming"
 subtitle: "Tutorial 1, week 3"
-author: "Victor Medina-Olivares"
-date: "2/Oct/2019"
+author: 
+  - "Victor Medina-Olivares"
+  - "victor.medina@ed.ac.uk"
+date: "02 Oct 2019"
 output:
   xaringan::moon_reader:
     lib_dir: libs
