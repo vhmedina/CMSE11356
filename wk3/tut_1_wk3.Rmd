@@ -1,0 +1,153 @@
+---
+title: "Prescriptive Analytics with Mathematical Programming"
+subtitle: "Tutorial 1, week 3"
+author: "Victor Medina-Olivares"
+date: "2/Oct/2019"
+output:
+  xaringan::moon_reader:
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+      self_contained: true
+---
+
+# GAMS
+
+The General Algebraic Modeling System (GAMS) is a high-level modeling system for mathematical programming and optimization.
+
+--
+
+- Specifically designed for modeling linear, nonlinear and mixed integer optimization problems.
+
+--
+
+## Installation
+
+1. Go to [https://www.gams.com](https://www.gams.com)
+2. Go to `Resources` and `Download`
+3. Download the GAMS version for your OS
+4. Save the license `gamslice.txt` in gamsdir
+5. Choose solver if needed (`File -> Options -> Solver` find `CPLEX`)
+
+---
+
+# Transportation problem
+
+- A soft drink is manufactured at two plants in the UK; Manchester and Glasgow
+- There are three distribution centres located in different areas; Edinburgh, Aberdeen  and Newcastle
+- The amount required for each centre and the shipping cost by unit from each plant is
+
+|    | Required (L)        | Cost Manchester (£ p/L) | Cost Glasgow (£ p/L) |
+|----|:----------------:|:----------------:|:----------------:|
+| Edinburgh |      10,000      |         2        |         3        |
+| Aberdeen |      80,000      |         3        |         1        |
+| Newcastle |      15,000      |         5        |         4        |
+
+- Plant in Manchester can produce 20,000 L and in Glasgow can produce 15,000 L
+
+How should be the transportation plan to minimise monthly
+transportation costs?
+
+---
+# Formulation
+
+
+.pull-left[
+
+#### Indices:
+
+$i =$ plants
+
+$j =$ distribution centres
+
+#### Given Data:
+
+$a_i =$ capacity of plant $i$
+
+$b_j =$ demand for drink at centre $j$
+
+$c_{ij} =$ cost per litre shipment between plant $i$ and centre $j$
+ 
+ ]
+ 
+.pull-right[
+
+#### Decision Variables:
+
+$x_{ij} =$ litres to ship from plant $i$ to centre $j$
+where $x_{ij} \ge 0$, for all $i,j$
+
+#### Constraints:
+
+Cap limit at plant $i$: $\sum_j x_{ij} \le a_i$
+
+Demand at centre $j$: $\sum_i x_{ij} = b_i$
+
+Total cost: $\sum_{ij} c_{ij}*x_{ij}$
+
+]
+
+--
+
+$\quad\quad$ **The objective is to find $x_{ij}$ which minimizes the total cost**
+
+---
+# In GAMS
+
+- `Indices` are called **`sets`**
+- `Given Data` are called **`parameters`**, **`scalars`** or **`tables`** (depending on type)
+- `Decision variables` are called **`variables`**
+- `Constraints` and the `Objective Function` are called **`equations`**
+
+
+**Let's code it!**
+
+---
+# Following with the Transportation problem
+
+What would happen with the total cost if:
+
+--
+- Plant in Glasgow increases its capacity from 15,000 to 15,001; 
+
+--
+
+*If we increase the capacity of plant Glasgow in one unit, then the resulting objective value will decrease in one unit accordingly. Therefore, without solving the problem, we know that the resulting objective function will be then (96,000 – 1) = 95,999 (£)*
+
+--
+- Distribution centre Newcastle increases its demand in one unit; 
+
+--
+
+*Analysing the marginal cost associated with the demand constraint in Newcastle, which is +5. Thus, the resulting objective value will be increased to 96,005 (£)*
+
+--
+- 1,000 products **must** be shipped from plant Manchester to centre Aberdeen
+
+--
+
+*The marginal cost associated with the variable x_(Manchester,Aberdeen) = 1, then shipping 1,000 units of products will increase the objective value to 96,000 + 1,000 = 97,000 (£)*
+
+---
+# Transportation problem v2
+
+- The Northside and Southside facilities of Zeron Industries supply three firms (Zrox, Hewes, Rockrite) with customized shelving for its offices. 
+- Northside and Southside order shelving from the same two manufacturers, Arnold Manufacturers and Supershelf, Inc. 
+- Demands by the users are 50 for Zrox, 60 for Hewes, and 40 for Rockrite. 
+- Arnold and Supershelf can supply at most 75 units. 
+- Unit costs from the manufacturers to the suppliers are
+
+|            | Zeron N | Zeron S |
+|------------|:-------:|:-------:|
+| Arnold     |    5    |    8    |
+| Supershelf |    7    |    4    |
+- The costs to install the shelving at the various locations are
+
+|         | Zrox | Hewes | Rockrite |
+|---------|:----:|:-----:|:--------:|
+| Zeron N |   1  |   5   |     8    |
+| Zeron S |   3  |   4   |     4    |
+ 
+**Find the transportation plan that minimises the costs**
