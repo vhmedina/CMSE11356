@@ -22,10 +22,10 @@ Rockrite 40
 
 Table c(i,j, m) Shipping cost
                     Zrox    Hewes   Rockrite
-Arnold.Zeron_N      5       25      40
-Arnold.Zeron_S      24      32      32
-Supershelf.Zeron_N  7       35      56
-Supershelf.Zeron_S  12      16      16
+Arnold.Zeron_N       6       10      13
+Arnold.Zeron_S      11       12      12
+Supershelf.Zeron_N   8       12      15
+Supershelf.Zeron_S   7        8       8
 ;
 
 * Define variables

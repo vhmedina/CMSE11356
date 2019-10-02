@@ -85,7 +85,7 @@ where $x_{ij} \ge 0$, for all $i,j$
 
 Cap limit at plant $i$: $\sum_j x_{ij} \le a_i$
 
-Demand at centre $j$: $\sum_i x_{ij} = b_i$
+Demand at centre $j$: $\sum_i x_{ij} = b_j$
 
 Total cost: $\sum_{ij} c_{ij}*x_{ij}$
 
