@@ -106,6 +106,8 @@ $\quad\quad$ **The objective is to find $x_{ij}$ which minimizes the total cost*
 
 **Let's code it!**
 
+
+
 ---
 # Following with the Transportation problem
 
@@ -165,3 +167,11 @@ What would happen with the total cost if:
 --
 
 $\quad\quad$ **Find the transportation plan that minimises the overall costs**
+
+---
+# Solutions
+
+Transportation Problem 1 in [code 1](https://github.com/vhmedina/CMSE11356/blob/master/wk3/tut_1_1_wk3.gms)
+
+Transportation Problem 2 in [code 2](https://github.com/vhmedina/CMSE11356/blob/master/wk3/tut_1_2_wk3.gms)
+
