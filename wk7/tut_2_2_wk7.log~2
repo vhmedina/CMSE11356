@@ -1,4 +1,4 @@
---- Job tut_2_2_wk7.gms Start 10/30/19 12:20:50 28.2.0 r750fa45 DEX-DEG x86 64bit/Mac OS X
+--- Job tut_2_2_wk7.gms Start 10/30/19 12:21:39 28.2.0 r750fa45 DEX-DEG x86 64bit/Mac OS X
 --- GAMS Parameters defined
     Input /Users/victor_medina/OneDrive - University of Edinburgh/CMSE11356/wk7/tut_2_2_wk7.gms
     PageSize 0
@@ -15,22 +15,41 @@ Licensee: Course License Advanced Analytics with MathematG190618/0001AO-GEN
           License for teaching and research at degree granting institutions
           License Admin: Douglas Alem, douglas.alem@ed.ac.uk               
 --- Starting compilation
---- tut_2_2_wk7.gms(23) 3 Mb 1 Error
-*** Error 225 in /Users/victor_medina/OneDrive - University of Edinburgh/CMSE11356/wk7/tut_2_2_wk7.gms
-    Floating entry ignored
---- tut_2_2_wk7.gms(24) 3 Mb 2 Errors
-*** Error 225 in /Users/victor_medina/OneDrive - University of Edinburgh/CMSE11356/wk7/tut_2_2_wk7.gms
-    Floating entry ignored
---- tut_2_2_wk7.gms(45) 3 Mb 3 Errors
-*** Error 257 in /Users/victor_medina/OneDrive - University of Edinburgh/CMSE11356/wk7/tut_2_2_wk7.gms
-    Solve statement not checked because of previous errors
---- tut_2_2_wk7.gms(48) 3 Mb 4 Errors
-*** Error 141 in /Users/victor_medina/OneDrive - University of Edinburgh/CMSE11356/wk7/tut_2_2_wk7.gms
-    Symbol declared but no values have been assigned. Check for missing
-       data definition, assignment, data loading or implicit assignment
-       via a solve statement.
-       A wild shot: You may have spurious commas in the explanatory
-       text of a declaration. Check symbol reference list.
---- tut_2_2_wk7.gms(48) 3 Mb 4 Errors
-*** Status: Compilation error(s)
---- Job tut_2_2_wk7.gms Stop 10/30/19 12:20:50 elapsed 0:00:00.005
+--- tut_2_2_wk7.gms(48) 3 Mb
+--- Starting execution: elapsed 0:00:00.002
+--- Generating LP model prob_2
+--- tut_2_2_wk7.gms(45) 4 Mb
+---   3 rows  3 columns  7 non-zeroes
+--- Executing CPLEX: elapsed 0:00:00.007
+
+IBM ILOG CPLEX   28.2.0 r750fa45 Released Aug 19, 2019 DEG x86 64bit/Mac OS X 
+Cplex 12.9.0.0
+
+Reading data...
+Starting Cplex...
+Space for names approximately 0.00 Mb
+Use option 'names no' to turn use of names off
+CPXPARAM_Advance                                 0
+CPXPARAM_Simplex_Display                         2
+CPXPARAM_Threads                                 1
+CPXPARAM_Parallel                                1
+CPXPARAM_Simplex_Limits_Iterations               2000000000
+CPXPARAM_TimeLimit                               1000
+CPXPARAM_Tune_TimeLimit                          200
+Tried aggregator 1 time.
+LP Presolve eliminated 3 rows and 3 columns.
+All rows and columns eliminated.
+Presolve time = 0.00 sec. (0.00 ticks)
+LP status(1): optimal
+Cplex Time: 0.00sec (det. 0.00 ticks)
+
+Optimal solution found.
+Objective :           3.000000
+
+--- Restarting execution
+--- tut_2_2_wk7.gms(45) 2 Mb
+--- Reading solution for model prob_2
+--- Executing after solve: elapsed 0:00:00.053
+--- tut_2_2_wk7.gms(48) 3 Mb
+*** Status: Normal completion
+--- Job tut_2_2_wk7.gms Stop 10/30/19 12:21:39 elapsed 0:00:00.053

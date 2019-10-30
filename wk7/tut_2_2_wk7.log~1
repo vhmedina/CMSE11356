@@ -1,4 +1,4 @@
---- Job tut_2_2_wk7.gms Start 10/30/19 12:21:39 28.2.0 r750fa45 DEX-DEG x86 64bit/Mac OS X
+--- Job tut_2_2_wk7.gms Start 10/30/19 12:22:02 28.2.0 r750fa45 DEX-DEG x86 64bit/Mac OS X
 --- GAMS Parameters defined
     Input /Users/victor_medina/OneDrive - University of Edinburgh/CMSE11356/wk7/tut_2_2_wk7.gms
     PageSize 0
@@ -37,19 +37,20 @@ CPXPARAM_Simplex_Limits_Iterations               2000000000
 CPXPARAM_TimeLimit                               1000
 CPXPARAM_Tune_TimeLimit                          200
 Tried aggregator 1 time.
-LP Presolve eliminated 3 rows and 3 columns.
+LP Presolve eliminated 2 rows and 2 columns.
+Aggregator did 1 substitutions.
 All rows and columns eliminated.
 Presolve time = 0.00 sec. (0.00 ticks)
 LP status(1): optimal
 Cplex Time: 0.00sec (det. 0.00 ticks)
 
 Optimal solution found.
-Objective :           3.000000
+Objective :          15.000000
 
 --- Restarting execution
 --- tut_2_2_wk7.gms(45) 2 Mb
 --- Reading solution for model prob_2
---- Executing after solve: elapsed 0:00:00.053
+--- Executing after solve: elapsed 0:00:00.054
 --- tut_2_2_wk7.gms(48) 3 Mb
 *** Status: Normal completion
---- Job tut_2_2_wk7.gms Stop 10/30/19 12:21:39 elapsed 0:00:00.053
+--- Job tut_2_2_wk7.gms Stop 10/30/19 12:22:02 elapsed 0:00:00.054

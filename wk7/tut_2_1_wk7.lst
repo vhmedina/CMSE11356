@@ -1,4 +1,4 @@
-GAMS 28.2.0  r750fa45 Released Aug 19, 2019 DEX-DEG x86 64bit/Mac OS X - 10/30/19 12:14:32 Page 1
+GAMS 28.2.0  r750fa45 Released Aug 19, 2019 DEX-DEG x86 64bit/Mac OS X - 10/30/19 15:36:42 Page 1
 G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
 C o m p i l a t i o n
 
@@ -71,7 +71,7 @@ INCLUDE    /Users/victor_medina/OneDrive - University of Edinburgh/CMSE11356/wk7
   68    put i.tl, x.l(i) /
   69  );
   70  putclose;
-GAMS 28.2.0  r750fa45 Released Aug 19, 2019 DEX-DEG x86 64bit/Mac OS X - 10/30/19 12:14:32 Page 2
+GAMS 28.2.0  r750fa45 Released Aug 19, 2019 DEX-DEG x86 64bit/Mac OS X - 10/30/19 15:36:42 Page 2
 G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
 Include File Summary
 
@@ -83,7 +83,7 @@ Include File Summary
 
 
 COMPILATION TIME     =        0.001 SECONDS      3 MB  28.2.0 r750fa45 DEX-DEG
-GAMS 28.2.0  r750fa45 Released Aug 19, 2019 DEX-DEG x86 64bit/Mac OS X - 10/30/19 12:14:32 Page 3
+GAMS 28.2.0  r750fa45 Released Aug 19, 2019 DEX-DEG x86 64bit/Mac OS X - 10/30/19 15:36:42 Page 3
 G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
 Equation Listing    SOLVE prob_1 Using LP From line 54
 
@@ -103,7 +103,7 @@ constr(c3)..  x(x1) + x(x2) + 2*x(x3) =L= 4 ; (LHS = 0)
      
 REMAINING ENTRY SKIPPED
 
-GAMS 28.2.0  r750fa45 Released Aug 19, 2019 DEX-DEG x86 64bit/Mac OS X - 10/30/19 12:14:32 Page 4
+GAMS 28.2.0  r750fa45 Released Aug 19, 2019 DEX-DEG x86 64bit/Mac OS X - 10/30/19 15:36:42 Page 4
 G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
 Column Listing      SOLVE prob_1 Using LP From line 54
 
@@ -141,7 +141,7 @@ x(x3)
         2       constr(c3)
         1       constr(c4)
 
-GAMS 28.2.0  r750fa45 Released Aug 19, 2019 DEX-DEG x86 64bit/Mac OS X - 10/30/19 12:14:32 Page 5
+GAMS 28.2.0  r750fa45 Released Aug 19, 2019 DEX-DEG x86 64bit/Mac OS X - 10/30/19 15:36:42 Page 5
 G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
 Model Statistics    SOLVE prob_1 Using LP From line 54
 
@@ -153,11 +153,11 @@ BLOCKS OF VARIABLES           2     SINGLE VARIABLES            4
 NON ZERO ELEMENTS            16
 
 
-GENERATION TIME      =        0.004 SECONDS      4 MB  28.2.0 r750fa45 DEX-DEG
+GENERATION TIME      =        0.007 SECONDS      4 MB  28.2.0 r750fa45 DEX-DEG
 
 
-EXECUTION TIME       =        0.004 SECONDS      4 MB  28.2.0 r750fa45 DEX-DEG
-GAMS 28.2.0  r750fa45 Released Aug 19, 2019 DEX-DEG x86 64bit/Mac OS X - 10/30/19 12:14:32 Page 6
+EXECUTION TIME       =        0.007 SECONDS      4 MB  28.2.0 r750fa45 DEX-DEG
+GAMS 28.2.0  r750fa45 Released Aug 19, 2019 DEX-DEG x86 64bit/Mac OS X - 10/30/19 15:36:42 Page 6
 G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
 Solution Report     SOLVE prob_1 Using LP From line 54
 
@@ -172,7 +172,7 @@ Solution Report     SOLVE prob_1 Using LP From line 54
 **** MODEL STATUS      1 Optimal                   
 **** OBJECTIVE VALUE               14.6667
 
- RESOURCE USAGE, LIMIT          0.007      1000.000
+ RESOURCE USAGE, LIMIT          0.009      1000.000
  ITERATION COUNT, LIMIT         3    2000000000
 
 IBM ILOG CPLEX   28.2.0 r750fa45 Released Aug 19, 2019 DEG x86 64bit/Mac OS X 
@@ -219,7 +219,7 @@ x3          .             1.3333        +INF             .
 **** REPORT SUMMARY :        0     NONOPT
                              0 INFEASIBLE
                              0  UNBOUNDED
-GAMS 28.2.0  r750fa45 Released Aug 19, 2019 DEX-DEG x86 64bit/Mac OS X - 10/30/19 12:14:32 Page 7
+GAMS 28.2.0  r750fa45 Released Aug 19, 2019 DEX-DEG x86 64bit/Mac OS X - 10/30/19 15:36:42 Page 7
 G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
 E x e c u t i o n
 

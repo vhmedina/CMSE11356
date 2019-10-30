@@ -1,4 +1,4 @@
-GAMS 28.2.0  r750fa45 Released Aug 19, 2019 DEX-DEG x86 64bit/Mac OS X - 10/30/19 12:22:02 Page 1
+GAMS 28.2.0  r750fa45 Released Aug 19, 2019 DEX-DEG x86 64bit/Mac OS X - 10/30/19 15:52:44 Page 1
 G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
 C o m p i l a t i o n
 
@@ -54,7 +54,7 @@ C o m p i l a t i o n
 
 
 COMPILATION TIME     =        0.000 SECONDS      3 MB  28.2.0 r750fa45 DEX-DEG
-GAMS 28.2.0  r750fa45 Released Aug 19, 2019 DEX-DEG x86 64bit/Mac OS X - 10/30/19 12:22:02 Page 2
+GAMS 28.2.0  r750fa45 Released Aug 19, 2019 DEX-DEG x86 64bit/Mac OS X - 10/30/19 15:52:44 Page 2
 G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
 Equation Listing    SOLVE prob_2 Using LP From line 45
 
@@ -70,7 +70,7 @@ constr(c1)..  - x(x1) - x(x2) =L= -1 ; (LHS = 0, INFES = 1 ****)
      
 constr(c2)..  2*x(x1) + 4*x(x2) =L= 10 ; (LHS = 0)
      
-GAMS 28.2.0  r750fa45 Released Aug 19, 2019 DEX-DEG x86 64bit/Mac OS X - 10/30/19 12:22:02 Page 3
+GAMS 28.2.0  r750fa45 Released Aug 19, 2019 DEX-DEG x86 64bit/Mac OS X - 10/30/19 15:52:44 Page 3
 G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
 Column Listing      SOLVE prob_2 Using LP From line 45
 
@@ -96,7 +96,7 @@ x(x2)
        -1       constr(c1)
         4       constr(c2)
 
-GAMS 28.2.0  r750fa45 Released Aug 19, 2019 DEX-DEG x86 64bit/Mac OS X - 10/30/19 12:22:02 Page 4
+GAMS 28.2.0  r750fa45 Released Aug 19, 2019 DEX-DEG x86 64bit/Mac OS X - 10/30/19 15:52:44 Page 4
 G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
 Model Statistics    SOLVE prob_2 Using LP From line 45
 
@@ -112,7 +112,7 @@ GENERATION TIME      =        0.005 SECONDS      4 MB  28.2.0 r750fa45 DEX-DEG
 
 
 EXECUTION TIME       =        0.005 SECONDS      4 MB  28.2.0 r750fa45 DEX-DEG
-GAMS 28.2.0  r750fa45 Released Aug 19, 2019 DEX-DEG x86 64bit/Mac OS X - 10/30/19 12:22:02 Page 5
+GAMS 28.2.0  r750fa45 Released Aug 19, 2019 DEX-DEG x86 64bit/Mac OS X - 10/30/19 15:52:44 Page 5
 G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
 Solution Report     SOLVE prob_2 Using LP From line 45
 
@@ -127,7 +127,7 @@ Solution Report     SOLVE prob_2 Using LP From line 45
 **** MODEL STATUS      1 Optimal                   
 **** OBJECTIVE VALUE               15.0000
 
- RESOURCE USAGE, LIMIT          0.008      1000.000
+ RESOURCE USAGE, LIMIT          0.007      1000.000
  ITERATION COUNT, LIMIT         0    2000000000
 
 IBM ILOG CPLEX   28.2.0 r750fa45 Released Aug 19, 2019 DEG x86 64bit/Mac OS X 
@@ -171,7 +171,7 @@ x2          .              .            +INF           -5.0000
 **** REPORT SUMMARY :        0     NONOPT
                              0 INFEASIBLE
                              0  UNBOUNDED
-GAMS 28.2.0  r750fa45 Released Aug 19, 2019 DEX-DEG x86 64bit/Mac OS X - 10/30/19 12:22:02 Page 6
+GAMS 28.2.0  r750fa45 Released Aug 19, 2019 DEX-DEG x86 64bit/Mac OS X - 10/30/19 15:52:44 Page 6
 G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
 E x e c u t i o n
 

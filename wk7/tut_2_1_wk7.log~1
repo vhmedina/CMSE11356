@@ -1,4 +1,4 @@
---- Job tut_2_1_wk7.gms Start 10/30/19 11:49:03 28.2.0 r750fa45 DEX-DEG x86 64bit/Mac OS X
+--- Job tut_2_1_wk7.gms Start 10/30/19 12:14:32 28.2.0 r750fa45 DEX-DEG x86 64bit/Mac OS X
 --- GAMS Parameters defined
     Input /Users/victor_medina/OneDrive - University of Edinburgh/CMSE11356/wk7/tut_2_1_wk7.gms
     PageSize 0
@@ -18,11 +18,11 @@ Licensee: Course License Advanced Analytics with MathematG190618/0001AO-GEN
 --- tut_2_1_wk7.gms(27) 3 Mb
 --- . table_const.csv(5) 3 Mb
 --- tut_2_1_wk7.gms(65) 3 Mb
---- Starting execution: elapsed 0:00:00.003
+--- Starting execution: elapsed 0:00:00.002
 --- Generating LP model prob_1
 --- tut_2_1_wk7.gms(54) 4 Mb
 ---   5 rows  4 columns  16 non-zeroes
---- Executing CPLEX: elapsed 0:00:00.007
+--- Executing CPLEX: elapsed 0:00:00.006
 
 IBM ILOG CPLEX   28.2.0 r750fa45 Released Aug 19, 2019 DEG x86 64bit/Mac OS X 
 Cplex 12.9.0.0
@@ -60,4 +60,4 @@ Objective :          14.666667
 --- tut_2_1_wk7.gms(70) 3 Mb
 --- Putfile results /Users/victor_medina/OneDrive - University of Edinburgh/CMSE11356/wk7/results.txt
 *** Status: Normal completion
---- Job tut_2_1_wk7.gms Stop 10/30/19 11:49:03 elapsed 0:00:00.049
+--- Job tut_2_1_wk7.gms Stop 10/30/19 12:14:32 elapsed 0:00:00.049

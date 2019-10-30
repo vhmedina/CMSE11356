@@ -1,4 +1,4 @@
---- Job tut_2_2_wk7.gms Start 10/30/19 12:22:02 28.2.0 r750fa45 DEX-DEG x86 64bit/Mac OS X
+--- Job tut_2_2_wk7.gms Start 10/30/19 15:52:44 28.2.0 r750fa45 DEX-DEG x86 64bit/Mac OS X
 --- GAMS Parameters defined
     Input /Users/victor_medina/OneDrive - University of Edinburgh/CMSE11356/wk7/tut_2_2_wk7.gms
     PageSize 0
@@ -16,11 +16,11 @@ Licensee: Course License Advanced Analytics with MathematG190618/0001AO-GEN
           License Admin: Douglas Alem, douglas.alem@ed.ac.uk               
 --- Starting compilation
 --- tut_2_2_wk7.gms(48) 3 Mb
---- Starting execution: elapsed 0:00:00.002
+--- Starting execution: elapsed 0:00:00.003
 --- Generating LP model prob_2
 --- tut_2_2_wk7.gms(45) 4 Mb
 ---   3 rows  3 columns  7 non-zeroes
---- Executing CPLEX: elapsed 0:00:00.007
+--- Executing CPLEX: elapsed 0:00:00.008
 
 IBM ILOG CPLEX   28.2.0 r750fa45 Released Aug 19, 2019 DEG x86 64bit/Mac OS X 
 Cplex 12.9.0.0
@@ -50,7 +50,7 @@ Objective :          15.000000
 --- Restarting execution
 --- tut_2_2_wk7.gms(45) 2 Mb
 --- Reading solution for model prob_2
---- Executing after solve: elapsed 0:00:00.054
+--- Executing after solve: elapsed 0:00:00.055
 --- tut_2_2_wk7.gms(48) 3 Mb
 *** Status: Normal completion
---- Job tut_2_2_wk7.gms Stop 10/30/19 12:22:02 elapsed 0:00:00.054
+--- Job tut_2_2_wk7.gms Stop 10/30/19 15:52:44 elapsed 0:00:00.055
