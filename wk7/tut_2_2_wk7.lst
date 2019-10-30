@@ -1,0 +1,201 @@
+GAMS 28.2.0  r750fa45 Released Aug 19, 2019 DEX-DEG x86 64bit/Mac OS X - 10/30/19 12:22:02 Page 1
+G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
+C o m p i l a t i o n
+
+
+   1  * Define the indeces or sets
+   2  Sets
+   3  i variables     /x1, x2/
+   4  j constr        /c1, c2/;
+   5   
+   6  * Define the data (parameters, tables, scalars)
+   7  Parameter c(i)
+   8  /
+   9  x1 3
+  10  x2 1
+  11  /
+  12  ;
+  13   
+  14  Parameter b(j)
+  15  /
+  16  c1 -1
+  17  c2 10
+  18  /
+  19  ;
+  20   
+  21  Table data(j,i)
+  22      x1      x2
+  23  c1  -1       -1
+  24  c2  2       4
+  25  ;
+  26   
+  27  * Define variables
+  28  Variables
+  29  z           total
+  30  x(i)        decision variables
+  31  Positive variables x;
+  32   
+  33  * Define constraints and objective function
+  34  Equations
+  35      of              objective function for the problem
+  36      constr(j)       constraints;
+  37   
+  38  of..                z =e= sum(i, c(i)*x(i));
+  39  constr(j)..         sum(i,data(j, i)*x(i)) =l= b(j);
+  40   
+  41  * declare model and assign equations (in this case use all of them)
+  42  Model prob_2 /all /;
+  43   
+  44  * Call solver
+  45  Solve prob_2 using lp maximizing z;
+  46   
+  47  * print final levels and marginal cost
+  48  Display x.l, x.m;
+
+
+COMPILATION TIME     =        0.000 SECONDS      3 MB  28.2.0 r750fa45 DEX-DEG
+GAMS 28.2.0  r750fa45 Released Aug 19, 2019 DEX-DEG x86 64bit/Mac OS X - 10/30/19 12:22:02 Page 2
+G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
+Equation Listing    SOLVE prob_2 Using LP From line 45
+
+
+---- of  =E=  objective function for the problem
+
+of..  z - 3*x(x1) - x(x2) =E= 0 ; (LHS = 0)
+     
+
+---- constr  =L=  constraints
+
+constr(c1)..  - x(x1) - x(x2) =L= -1 ; (LHS = 0, INFES = 1 ****)
+     
+constr(c2)..  2*x(x1) + 4*x(x2) =L= 10 ; (LHS = 0)
+     
+GAMS 28.2.0  r750fa45 Released Aug 19, 2019 DEX-DEG x86 64bit/Mac OS X - 10/30/19 12:22:02 Page 3
+G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
+Column Listing      SOLVE prob_2 Using LP From line 45
+
+
+---- z  total
+
+z
+                (.LO, .L, .UP, .M = -INF, 0, +INF, 0)
+        1       of
+
+
+---- x  decision variables
+
+x(x1)
+                (.LO, .L, .UP, .M = 0, 0, +INF, 0)
+       -3       of
+       -1       constr(c1)
+        2       constr(c2)
+
+x(x2)
+                (.LO, .L, .UP, .M = 0, 0, +INF, 0)
+       -1       of
+       -1       constr(c1)
+        4       constr(c2)
+
+GAMS 28.2.0  r750fa45 Released Aug 19, 2019 DEX-DEG x86 64bit/Mac OS X - 10/30/19 12:22:02 Page 4
+G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
+Model Statistics    SOLVE prob_2 Using LP From line 45
+
+
+MODEL STATISTICS
+
+BLOCKS OF EQUATIONS           2     SINGLE EQUATIONS            3
+BLOCKS OF VARIABLES           2     SINGLE VARIABLES            3
+NON ZERO ELEMENTS             7
+
+
+GENERATION TIME      =        0.005 SECONDS      4 MB  28.2.0 r750fa45 DEX-DEG
+
+
+EXECUTION TIME       =        0.005 SECONDS      4 MB  28.2.0 r750fa45 DEX-DEG
+GAMS 28.2.0  r750fa45 Released Aug 19, 2019 DEX-DEG x86 64bit/Mac OS X - 10/30/19 12:22:02 Page 5
+G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
+Solution Report     SOLVE prob_2 Using LP From line 45
+
+
+               S O L V E      S U M M A R Y
+
+     MODEL   prob_2              OBJECTIVE  z
+     TYPE    LP                  DIRECTION  MAXIMIZE
+     SOLVER  CPLEX               FROM LINE  45
+
+**** SOLVER STATUS     1 Normal Completion         
+**** MODEL STATUS      1 Optimal                   
+**** OBJECTIVE VALUE               15.0000
+
+ RESOURCE USAGE, LIMIT          0.008      1000.000
+ ITERATION COUNT, LIMIT         0    2000000000
+
+IBM ILOG CPLEX   28.2.0 r750fa45 Released Aug 19, 2019 DEG x86 64bit/Mac OS X 
+Cplex 12.9.0.0
+
+Space for names approximately 0.00 Mb
+Use option 'names no' to turn use of names off
+LP status(1): optimal
+Cplex Time: 0.00sec (det. 0.00 ticks)
+Optimal solution found.
+Objective :          15.000000
+
+
+                           LOWER          LEVEL          UPPER         MARGINAL
+
+---- EQU of                  .              .              .             1.0000      
+
+  of  objective function for the problem
+
+---- EQU constr  constraints
+
+          LOWER          LEVEL          UPPER         MARGINAL
+
+c1        -INF           -5.0000        -1.0000          .          
+c2        -INF           10.0000        10.0000         1.5000      
+
+                           LOWER          LEVEL          UPPER         MARGINAL
+
+---- VAR z                 -INF           15.0000        +INF             .          
+
+  z  total
+
+---- VAR x  decision variables
+
+          LOWER          LEVEL          UPPER         MARGINAL
+
+x1          .             5.0000        +INF             .          
+x2          .              .            +INF           -5.0000      
+
+
+**** REPORT SUMMARY :        0     NONOPT
+                             0 INFEASIBLE
+                             0  UNBOUNDED
+GAMS 28.2.0  r750fa45 Released Aug 19, 2019 DEX-DEG x86 64bit/Mac OS X - 10/30/19 12:22:02 Page 6
+G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
+E x e c u t i o n
+
+
+----     48 VARIABLE x.L  decision variables
+
+x1 5.000
+
+
+----     48 VARIABLE x.M  decision variables
+
+x2 -5.000
+
+
+
+EXECUTION TIME       =        0.001 SECONDS      3 MB  28.2.0 r750fa45 DEX-DEG
+
+
+USER: Course License Advanced Analytics with MathematG190618/0001AO-GEN
+      The University of Edinburgh - Business School               DCE66
+      License for teaching and research at degree granting institutions
+
+
+**** FILE SUMMARY
+
+Input      /Users/victor_medina/OneDrive - University of Edinburgh/CMSE11356/wk7/tut_2_2_wk7.gms
+Output     /Users/victor_medina/OneDrive - University of Edinburgh/CMSE11356/wk7/tut_2_2_wk7.lst

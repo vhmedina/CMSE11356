@@ -1,0 +1,16 @@
+B 3 C o m p i l a t i o n
+B 59 Equation Listing    SOLVE prob_2 Using LP From line 45
+D 62 of
+D 67 constr
+B 75 Column Listing      SOLVE prob_2 Using LP From line 45
+E 78 z
+E 85 x
+B 101 Model Statistics    SOLVE prob_2 Using LP From line 45
+B 117 Solution Report     SOLVE prob_2 Using LP From line 45
+F 146 of
+F 150 constr
+G 159 z
+G 163 x
+B 176 E x e c u t i o n
+I 176 x
+I 182 x

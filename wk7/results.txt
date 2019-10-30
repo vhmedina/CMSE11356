@@ -1,0 +1,7 @@
+"Model status",1.00
+"Solver status",1.00
+"Objective",14.67
+"Variables"
+"x1",0.00
+"x2",1.33
+"x3",1.33
