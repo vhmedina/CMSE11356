@@ -1,0 +1,510 @@
+--- Job tut_3_1_wk8.gms Start 11/05/19 22:53:18 28.2.0 r750fa45 DEX-DEG x86 64bit/Mac OS X
+--- GAMS Parameters defined
+    Input /Users/victor_medina/OneDrive - University of Edinburgh/CMSE11356/wk8/tut_3_1_wk8.gms
+    PageSize 0
+    ScrDir /Users/victor_medina/OneDrive - University of Edinburgh/CMSE11356/wk8/225a/
+    SysDir /Applications/GAMS28.2/sysdir/
+    LogOption 3
+    ErrMsg 1
+    ErrorLog 99
+    IDE 1
+    LstTitleLeftAligned 1
+GAMS 28.2.0   Copyright (C) 1987-2019 GAMS Development. All rights reserved
+Licensee: Course License Advanced Analytics with MathematG190618/0001AO-GEN
+          The University of Edinburgh - Business School               DCE66
+          License for teaching and research at degree granting institutions
+          License Admin: Douglas Alem, douglas.alem@ed.ac.uk               
+--- Starting compilation
+--- tut_3_1_wk8.gms(114) 3 Mb
+--- Starting execution: elapsed 0:00:00.003
+--- tut_3_1_wk8.gms(89) 4 Mb
+--- Generating LP model transport
+--- tut_3_1_wk8.gms(91) 4 Mb
+--- LOOPS ip = seattle
+---       jp = new-york
+---   6 rows  7 columns  19 non-zeroes
+--- Executing CPLEX: elapsed 0:00:00.009
+
+IBM ILOG CPLEX   28.2.0 r750fa45 Released Aug 19, 2019 DEG x86 64bit/Mac OS X 
+Cplex 12.9.0.0
+
+Reading data...
+Starting Cplex...
+Space for names approximately 0.00 Mb
+Use option 'names no' to turn use of names off
+CPXPARAM_Advance                                 0
+CPXPARAM_Simplex_Display                         2
+CPXPARAM_Threads                                 1
+CPXPARAM_Parallel                                1
+CPXPARAM_Simplex_Limits_Iterations               2000000000
+CPXPARAM_TimeLimit                               1000
+CPXPARAM_Tune_TimeLimit                          200
+Tried aggregator 1 time.
+LP Presolve eliminated 1 rows and 1 columns.
+Reduced LP has 5 rows, 6 columns, and 12 nonzeros.
+Presolve time = 0.00 sec. (0.00 ticks)
+
+Iteration      Dual Objective            In Variable           Out Variable
+     1              51.187500    x(seattle.new-york) demand(new-york) slack
+     2              97.087500     x(seattle.chicago)  demand(chicago) slack
+     3             131.737500    x(san-diego.topeka)   demand(topeka) slack
+     4             134.212500   x(san-diego.chicago)  supply(seattle) slack
+LP status(1): optimal
+Cplex Time: 0.00sec (det. 0.01 ticks)
+
+Optimal solution found.
+Objective :         134.212500
+
+--- Restarting execution
+--- tut_3_1_wk8.gms(91) 2 Mb
+--- Reading solution for model transport
+--- Executing after solve: elapsed 0:00:00.061
+--- tut_3_1_wk8.gms(89) 3 Mb
+--- Generating LP model transport
+--- tut_3_1_wk8.gms(101) 3 Mb
+--- LOOPS ip = seattle
+---       jp = new-york
+---   6 rows  7 columns  19 non-zeroes
+--- Executing CPLEX: elapsed 0:00:00.065
+
+IBM ILOG CPLEX   28.2.0 r750fa45 Released Aug 19, 2019 DEG x86 64bit/Mac OS X 
+Cplex 12.9.0.0
+
+Reading data...
+Starting Cplex...
+Space for names approximately 0.00 Mb
+Use option 'names no' to turn use of names off
+CPXPARAM_Advance                                 2
+CPXPARAM_Simplex_Display                         2
+CPXPARAM_Threads                                 1
+CPXPARAM_Parallel                                1
+CPXPARAM_Simplex_Limits_Iterations               2000000000
+CPXPARAM_TimeLimit                               1000
+CPXPARAM_Tune_TimeLimit                          200
+Tried aggregator 1 time.
+LP Presolve eliminated 1 rows and 1 columns.
+Reduced LP has 5 rows, 6 columns, and 12 nonzeros.
+Presolve time = 0.00 sec. (0.00 ticks)
+Using devex.
+
+Iteration           Objective            In Variable           Out Variable
+     1             157.050000  x(san-diego.new-york)   x(san-diego.chicago)
+     2             153.675000  supply(seattle) slack    x(seattle.new-york)
+LP status(1): optimal
+Cplex Time: 0.00sec (det. 0.01 ticks)
+
+Optimal solution found.
+Objective :         153.675000
+
+--- Restarting execution
+--- tut_3_1_wk8.gms(101) 2 Mb
+--- Reading solution for model transport
+--- Executing after solve: elapsed 0:00:00.121
+--- tut_3_1_wk8.gms(89) 3 Mb
+--- Generating LP model transport
+--- tut_3_1_wk8.gms(91) 3 Mb
+--- LOOPS ip = seattle
+---       jp = chicago
+---   6 rows  7 columns  19 non-zeroes
+--- Executing CPLEX: elapsed 0:00:00.126
+
+IBM ILOG CPLEX   28.2.0 r750fa45 Released Aug 19, 2019 DEG x86 64bit/Mac OS X 
+Cplex 12.9.0.0
+
+Reading data...
+Starting Cplex...
+Space for names approximately 0.00 Mb
+Use option 'names no' to turn use of names off
+CPXPARAM_Advance                                 2
+CPXPARAM_Simplex_Display                         2
+CPXPARAM_Threads                                 1
+CPXPARAM_Parallel                                1
+CPXPARAM_Simplex_Limits_Iterations               2000000000
+CPXPARAM_TimeLimit                               1000
+CPXPARAM_Tune_TimeLimit                          200
+Tried aggregator 1 time.
+LP Presolve eliminated 1 rows and 1 columns.
+Reduced LP has 5 rows, 6 columns, and 12 nonzeros.
+Presolve time = 0.00 sec. (0.00 ticks)
+Using devex.
+
+Iteration           Objective            In Variable           Out Variable
+     1             139.905000supply(san-diego) slack   demand(topeka) slack
+LP status(1): optimal
+Cplex Time: 0.00sec (det. 0.01 ticks)
+
+Optimal solution found.
+Objective :         139.905000
+
+--- Restarting execution
+--- tut_3_1_wk8.gms(91) 2 Mb
+--- Reading solution for model transport
+--- Executing after solve: elapsed 0:00:00.177
+--- tut_3_1_wk8.gms(89) 3 Mb
+--- Generating LP model transport
+--- tut_3_1_wk8.gms(101) 3 Mb
+--- LOOPS ip = seattle
+---       jp = chicago
+---   6 rows  7 columns  19 non-zeroes
+--- Executing CPLEX: elapsed 0:00:00.181
+
+IBM ILOG CPLEX   28.2.0 r750fa45 Released Aug 19, 2019 DEG x86 64bit/Mac OS X 
+Cplex 12.9.0.0
+
+Reading data...
+Starting Cplex...
+Space for names approximately 0.00 Mb
+Use option 'names no' to turn use of names off
+CPXPARAM_Advance                                 2
+CPXPARAM_Simplex_Display                         2
+CPXPARAM_Threads                                 1
+CPXPARAM_Parallel                                1
+CPXPARAM_Simplex_Limits_Iterations               2000000000
+CPXPARAM_TimeLimit                               1000
+CPXPARAM_Tune_TimeLimit                          200
+Tried aggregator 1 time.
+LP Presolve eliminated 1 rows and 1 columns.
+Reduced LP has 5 rows, 6 columns, and 12 nonzeros.
+Presolve time = 0.00 sec. (0.00 ticks)
+Using devex.
+
+Iteration           Objective            In Variable           Out Variable
+     1             167.445000   x(san-diego.chicago)   demand(topeka) slack
+     2             156.375000    x(seattle.new-york)     x(seattle.chicago)
+LP status(1): optimal
+Cplex Time: 0.00sec (det. 0.01 ticks)
+
+Optimal solution found.
+Objective :         156.375000
+
+--- Restarting execution
+--- tut_3_1_wk8.gms(101) 2 Mb
+--- Reading solution for model transport
+--- Executing after solve: elapsed 0:00:00.240
+--- tut_3_1_wk8.gms(89) 3 Mb
+--- Generating LP model transport
+--- tut_3_1_wk8.gms(91) 3 Mb
+--- LOOPS ip = seattle
+---       jp = topeka
+---   6 rows  7 columns  19 non-zeroes
+--- Executing CPLEX: elapsed 0:00:00.245
+
+IBM ILOG CPLEX   28.2.0 r750fa45 Released Aug 19, 2019 DEG x86 64bit/Mac OS X 
+Cplex 12.9.0.0
+
+Reading data...
+Starting Cplex...
+Space for names approximately 0.00 Mb
+Use option 'names no' to turn use of names off
+CPXPARAM_Advance                                 2
+CPXPARAM_Simplex_Display                         2
+CPXPARAM_Threads                                 1
+CPXPARAM_Parallel                                1
+CPXPARAM_Simplex_Limits_Iterations               2000000000
+CPXPARAM_TimeLimit                               1000
+CPXPARAM_Tune_TimeLimit                          200
+Tried aggregator 1 time.
+LP Presolve eliminated 1 rows and 1 columns.
+Reduced LP has 5 rows, 6 columns, and 12 nonzeros.
+Presolve time = 0.00 sec. (0.00 ticks)
+Using devex.
+
+Iteration           Objective            In Variable           Out Variable
+     1             152.910000      x(seattle.topeka)    x(san-diego.topeka)
+     2             152.685000     x(seattle.chicago)    x(seattle.new-york)
+     3             152.235000supply(san-diego) slack  supply(seattle) slack
+LP status(1): optimal
+Cplex Time: 0.00sec (det. 0.01 ticks)
+
+Optimal solution found.
+Objective :         152.235000
+
+--- Restarting execution
+--- tut_3_1_wk8.gms(91) 2 Mb
+--- Reading solution for model transport
+--- Executing after solve: elapsed 0:00:00.303
+--- tut_3_1_wk8.gms(89) 3 Mb
+--- Generating LP model transport
+--- tut_3_1_wk8.gms(101) 3 Mb
+--- LOOPS ip = seattle
+---       jp = topeka
+---   6 rows  7 columns  19 non-zeroes
+--- Executing CPLEX: elapsed 0:00:00.309
+
+IBM ILOG CPLEX   28.2.0 r750fa45 Released Aug 19, 2019 DEG x86 64bit/Mac OS X 
+Cplex 12.9.0.0
+
+Reading data...
+Starting Cplex...
+Space for names approximately 0.00 Mb
+Use option 'names no' to turn use of names off
+CPXPARAM_Advance                                 2
+CPXPARAM_Simplex_Display                         2
+CPXPARAM_Threads                                 1
+CPXPARAM_Parallel                                1
+CPXPARAM_Simplex_Limits_Iterations               2000000000
+CPXPARAM_TimeLimit                               1000
+CPXPARAM_Tune_TimeLimit                          200
+Tried aggregator 1 time.
+LP Presolve eliminated 1 rows and 1 columns.
+Reduced LP has 5 rows, 6 columns, and 12 nonzeros.
+Presolve time = 0.00 sec. (0.00 ticks)
+Using devex.
+
+Iteration           Objective            In Variable           Out Variable
+     1             157.905000    x(san-diego.topeka)   x(san-diego.chicago)
+     2             153.675000  supply(seattle) slack      x(seattle.topeka)
+LP status(1): optimal
+Cplex Time: 0.00sec (det. 0.01 ticks)
+
+Optimal solution found.
+Objective :         153.675000
+
+--- Restarting execution
+--- tut_3_1_wk8.gms(101) 2 Mb
+--- Reading solution for model transport
+--- Executing after solve: elapsed 0:00:00.364
+--- tut_3_1_wk8.gms(89) 3 Mb
+--- Generating LP model transport
+--- tut_3_1_wk8.gms(91) 3 Mb
+--- LOOPS ip = san-diego
+---       jp = new-york
+---   6 rows  7 columns  19 non-zeroes
+--- Executing CPLEX: elapsed 0:00:00.369
+
+IBM ILOG CPLEX   28.2.0 r750fa45 Released Aug 19, 2019 DEG x86 64bit/Mac OS X 
+Cplex 12.9.0.0
+
+Reading data...
+Starting Cplex...
+Space for names approximately 0.00 Mb
+Use option 'names no' to turn use of names off
+CPXPARAM_Advance                                 2
+CPXPARAM_Simplex_Display                         2
+CPXPARAM_Threads                                 1
+CPXPARAM_Parallel                                1
+CPXPARAM_Simplex_Limits_Iterations               2000000000
+CPXPARAM_TimeLimit                               1000
+CPXPARAM_Tune_TimeLimit                          200
+Tried aggregator 1 time.
+LP Presolve eliminated 1 rows and 1 columns.
+Reduced LP has 5 rows, 6 columns, and 12 nonzeros.
+Presolve time = 0.00 sec. (0.00 ticks)
+Using devex.
+
+Iteration           Objective            In Variable           Out Variable
+     1             131.737500supply(san-diego) slack   demand(topeka) slack
+LP status(1): optimal
+Cplex Time: 0.00sec (det. 0.01 ticks)
+
+Optimal solution found.
+Objective :         131.737500
+
+--- Restarting execution
+--- tut_3_1_wk8.gms(91) 2 Mb
+--- Reading solution for model transport
+--- Executing after solve: elapsed 0:00:00.422
+--- tut_3_1_wk8.gms(89) 3 Mb
+--- Generating LP model transport
+--- tut_3_1_wk8.gms(101) 3 Mb
+--- LOOPS ip = san-diego
+---       jp = new-york
+---   6 rows  7 columns  19 non-zeroes
+--- Executing CPLEX: elapsed 0:00:00.427
+
+IBM ILOG CPLEX   28.2.0 r750fa45 Released Aug 19, 2019 DEG x86 64bit/Mac OS X 
+Cplex 12.9.0.0
+
+Reading data...
+Starting Cplex...
+Space for names approximately 0.00 Mb
+Use option 'names no' to turn use of names off
+CPXPARAM_Advance                                 2
+CPXPARAM_Simplex_Display                         2
+CPXPARAM_Threads                                 1
+CPXPARAM_Parallel                                1
+CPXPARAM_Simplex_Limits_Iterations               2000000000
+CPXPARAM_TimeLimit                               1000
+CPXPARAM_Tune_TimeLimit                          200
+Tried aggregator 1 time.
+LP Presolve eliminated 1 rows and 1 columns.
+Reduced LP has 5 rows, 6 columns, and 12 nonzeros.
+Presolve time = 0.00 sec. (0.00 ticks)
+Using devex.
+
+Iteration           Objective            In Variable           Out Variable
+     1             175.612500supply(san-diego) slack   demand(topeka) slack
+     2             172.237500    x(seattle.new-york)  supply(seattle) slack
+     3             156.150000   x(san-diego.chicago)  x(san-diego.new-york)
+LP status(1): optimal
+Cplex Time: 0.00sec (det. 0.01 ticks)
+
+Optimal solution found.
+Objective :         156.150000
+
+--- Restarting execution
+--- tut_3_1_wk8.gms(101) 2 Mb
+--- Reading solution for model transport
+--- Executing after solve: elapsed 0:00:00.480
+--- tut_3_1_wk8.gms(89) 3 Mb
+--- Generating LP model transport
+--- tut_3_1_wk8.gms(91) 3 Mb
+--- LOOPS ip = san-diego
+---       jp = chicago
+---   6 rows  7 columns  19 non-zeroes
+--- Executing CPLEX: elapsed 0:00:00.487
+
+IBM ILOG CPLEX   28.2.0 r750fa45 Released Aug 19, 2019 DEG x86 64bit/Mac OS X 
+Cplex 12.9.0.0
+
+Reading data...
+Starting Cplex...
+Space for names approximately 0.00 Mb
+Use option 'names no' to turn use of names off
+CPXPARAM_Advance                                 2
+CPXPARAM_Simplex_Display                         2
+CPXPARAM_Threads                                 1
+CPXPARAM_Parallel                                1
+CPXPARAM_Simplex_Limits_Iterations               2000000000
+CPXPARAM_TimeLimit                               1000
+CPXPARAM_Tune_TimeLimit                          200
+Tried aggregator 1 time.
+LP Presolve eliminated 1 rows and 1 columns.
+Reduced LP has 5 rows, 6 columns, and 12 nonzeros.
+Presolve time = 0.00 sec. (0.00 ticks)
+Using devex.
+
+Iteration           Objective            In Variable           Out Variable
+     1             141.795000  supply(seattle) slack     x(seattle.chicago)
+LP status(1): optimal
+Cplex Time: 0.00sec (det. 0.01 ticks)
+
+Optimal solution found.
+Objective :         141.795000
+
+--- Restarting execution
+--- tut_3_1_wk8.gms(91) 2 Mb
+--- Reading solution for model transport
+--- Executing after solve: elapsed 0:00:00.541
+--- tut_3_1_wk8.gms(89) 3 Mb
+--- Generating LP model transport
+--- tut_3_1_wk8.gms(101) 3 Mb
+--- LOOPS ip = san-diego
+---       jp = chicago
+---   6 rows  7 columns  19 non-zeroes
+--- Executing CPLEX: elapsed 0:00:00.548
+
+IBM ILOG CPLEX   28.2.0 r750fa45 Released Aug 19, 2019 DEG x86 64bit/Mac OS X 
+Cplex 12.9.0.0
+
+Reading data...
+Starting Cplex...
+Space for names approximately 0.00 Mb
+Use option 'names no' to turn use of names off
+CPXPARAM_Advance                                 2
+CPXPARAM_Simplex_Display                         2
+CPXPARAM_Threads                                 1
+CPXPARAM_Parallel                                1
+CPXPARAM_Simplex_Limits_Iterations               2000000000
+CPXPARAM_TimeLimit                               1000
+CPXPARAM_Tune_TimeLimit                          200
+Tried aggregator 1 time.
+LP Presolve eliminated 1 rows and 1 columns.
+Reduced LP has 5 rows, 6 columns, and 12 nonzeros.
+Presolve time = 0.00 sec. (0.00 ticks)
+Using devex.
+
+Iteration           Objective            In Variable           Out Variable
+     1             169.515000     x(seattle.chicago)  supply(seattle) slack
+     2             153.675000  x(san-diego.new-york)   x(san-diego.chicago)
+LP status(1): optimal
+Cplex Time: 0.00sec (det. 0.01 ticks)
+
+Optimal solution found.
+Objective :         153.675000
+
+--- Restarting execution
+--- tut_3_1_wk8.gms(101) 2 Mb
+--- Reading solution for model transport
+--- Executing after solve: elapsed 0:00:00.604
+--- tut_3_1_wk8.gms(89) 3 Mb
+--- Generating LP model transport
+--- tut_3_1_wk8.gms(91) 3 Mb
+--- LOOPS ip = san-diego
+---       jp = topeka
+---   6 rows  7 columns  19 non-zeroes
+--- Executing CPLEX: elapsed 0:00:00.609
+
+IBM ILOG CPLEX   28.2.0 r750fa45 Released Aug 19, 2019 DEG x86 64bit/Mac OS X 
+Cplex 12.9.0.0
+
+Reading data...
+Starting Cplex...
+Space for names approximately 0.00 Mb
+Use option 'names no' to turn use of names off
+CPXPARAM_Advance                                 2
+CPXPARAM_Simplex_Display                         2
+CPXPARAM_Threads                                 1
+CPXPARAM_Parallel                                1
+CPXPARAM_Simplex_Limits_Iterations               2000000000
+CPXPARAM_TimeLimit                               1000
+CPXPARAM_Tune_TimeLimit                          200
+Tried aggregator 1 time.
+LP Presolve eliminated 1 rows and 1 columns.
+Reduced LP has 5 rows, 6 columns, and 12 nonzeros.
+Presolve time = 0.00 sec. (0.00 ticks)
+Using devex.
+LP status(1): optimal
+Cplex Time: 0.00sec (det. 0.01 ticks)
+
+Optimal solution found.
+Objective :         143.280000
+
+--- Restarting execution
+--- tut_3_1_wk8.gms(91) 2 Mb
+--- Reading solution for model transport
+--- Executing after solve: elapsed 0:00:00.661
+--- tut_3_1_wk8.gms(89) 3 Mb
+--- Generating LP model transport
+--- tut_3_1_wk8.gms(101) 3 Mb
+--- LOOPS ip = san-diego
+---       jp = topeka
+---   6 rows  7 columns  19 non-zeroes
+--- Executing CPLEX: elapsed 0:00:00.665
+
+IBM ILOG CPLEX   28.2.0 r750fa45 Released Aug 19, 2019 DEG x86 64bit/Mac OS X 
+Cplex 12.9.0.0
+
+Reading data...
+Starting Cplex...
+Space for names approximately 0.00 Mb
+Use option 'names no' to turn use of names off
+CPXPARAM_Advance                                 2
+CPXPARAM_Simplex_Display                         2
+CPXPARAM_Threads                                 1
+CPXPARAM_Parallel                                1
+CPXPARAM_Simplex_Limits_Iterations               2000000000
+CPXPARAM_TimeLimit                               1000
+CPXPARAM_Tune_TimeLimit                          200
+Tried aggregator 1 time.
+LP Presolve eliminated 1 rows and 1 columns.
+Reduced LP has 5 rows, 6 columns, and 12 nonzeros.
+Presolve time = 0.00 sec. (0.00 ticks)
+Using devex.
+
+Iteration           Objective            In Variable           Out Variable
+     1             163.980000      x(seattle.topeka)    x(seattle.new-york)
+LP status(1): optimal
+Cplex Time: 0.00sec (det. 0.01 ticks)
+
+Optimal solution found.
+Objective :         163.980000
+
+--- Restarting execution
+--- tut_3_1_wk8.gms(101) 2 Mb
+--- Reading solution for model transport
+--- Executing after solve: elapsed 0:00:00.717
+--- tut_3_1_wk8.gms(89) 3 Mb
+--- Putfile repdat /Users/victor_medina/OneDrive - University of Edinburgh/CMSE11356/wk8/repdat.put
+*** Status: Normal completion
+--- Job tut_3_1_wk8.gms Stop 11/05/19 22:53:19 elapsed 0:00:00.718

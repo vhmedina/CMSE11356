@@ -1,0 +1,38 @@
+B 3 C o m p i l a t i o n
+B 67 Sensitivity Part for trnsport
+B 125 Model Statistics    SOLVE transport Using LP From line 91
+B 148 Solution Report     SOLVE transport Using LP From line 91
+B 181 Model Statistics    SOLVE transport Using LP From line 101
+B 204 Solution Report     SOLVE transport Using LP From line 101
+B 237 E x e c u t i o n
+I 237 report
+B 250 Model Statistics    SOLVE transport Using LP From line 91
+B 273 Solution Report     SOLVE transport Using LP From line 91
+B 306 Model Statistics    SOLVE transport Using LP From line 101
+B 329 Solution Report     SOLVE transport Using LP From line 101
+B 362 E x e c u t i o n
+I 362 report
+B 377 Model Statistics    SOLVE transport Using LP From line 91
+B 400 Solution Report     SOLVE transport Using LP From line 91
+B 433 Model Statistics    SOLVE transport Using LP From line 101
+B 456 Solution Report     SOLVE transport Using LP From line 101
+B 489 E x e c u t i o n
+I 489 report
+B 506 Model Statistics    SOLVE transport Using LP From line 91
+B 529 Solution Report     SOLVE transport Using LP From line 91
+B 562 Model Statistics    SOLVE transport Using LP From line 101
+B 585 Solution Report     SOLVE transport Using LP From line 101
+B 618 E x e c u t i o n
+I 618 report
+B 637 Model Statistics    SOLVE transport Using LP From line 91
+B 660 Solution Report     SOLVE transport Using LP From line 91
+B 693 Model Statistics    SOLVE transport Using LP From line 101
+B 716 Solution Report     SOLVE transport Using LP From line 101
+B 749 E x e c u t i o n
+I 749 report
+B 770 Model Statistics    SOLVE transport Using LP From line 91
+B 793 Solution Report     SOLVE transport Using LP From line 91
+B 826 Model Statistics    SOLVE transport Using LP From line 101
+B 849 Solution Report     SOLVE transport Using LP From line 101
+B 882 E x e c u t i o n
+I 882 report

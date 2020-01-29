@@ -1,0 +1,916 @@
+GAMS 28.2.0  r750fa45 Released Aug 19, 2019 DEX-DEG x86 64bit/Mac OS X - 11/05/19 22:54:29 Page 1
+Sensitivity analysis using LOOPS (SENSTRAN,SEQ=106)
+C o m p i l a t i o n
+
+
+   2   
+      This problem performs sensitivity analysis on the TRNSPORT
+      problem. The basic model is taken from the GAMS model
+      library. A separate model is solved for each variation of the
+      transport cost matrix. The transport cost on each link is raised
+      and lowered by 30 percent and the shipment patterns are either
+      saved in a GAMS data table or written to file for further analysis
+      by a statistical system.
+       
+       
+      Dantzig, G B, Chapter 3.3. In Linear Programming and Extensions.
+      Princeton University Press, Princeton, New Jersey, 1963.
+       
+      Keywords: linear programming, sensitivity analysis, linear programming,
+                transportation problem, scheduling
+  19   
+  20  Set
+  21     i 'canning plants' / seattle,  san-diego /
+  22     j 'markets'        / new-york, chicago, topeka /;
+  23   
+  24  Parameter
+  25     a(i) 'capacity of plant i in cases'
+  26          / seattle    350
+  27            san-diego  600 /
+  28   
+  29     b(j) 'demand at market j in cases'
+  30          / new-york   325
+  31            chicago    300
+  32            topeka     275 /;
+  33   
+  34  Table d(i,j) 'distance in thousands of miles'
+  35                new-york  chicago  topeka
+  36     seattle         2.5      1.7     1.8
+  37     san-diego       2.5      1.8     1.4;
+  38   
+  39  Scalar f 'freight in dollars per case per thousand miles' / 90 /;
+  40   
+  41  Parameter c(i,j) 'transport cost in thousands of dollars per case';
+  42  c(i,j) = f*d(i,j)/1000;
+  43   
+  44  Variable
+  45     x(i,j) 'shipment quantities in cases'
+  46     z      'total transportation costs in thousands of dollars';
+  47   
+  48  Positive Variable x;
+  49   
+  50  Equation
+  51     cost      'define objective function'
+  52     supply(i) 'observe supply limit at plant i'
+  53     demand(j) 'satisfy demand at market j';
+  54   
+  55  cost..      z =e= sum((i,j), c(i,j)*x(i,j));
+  56   
+  57  supply(i).. sum(j, x(i,j)) =l= a(i);
+  58   
+  59  demand(j).. sum(i, x(i,j)) =g= b(j);
+  60   
+  61  Model transport / all /;
+  62   
+GAMS 28.2.0  r750fa45 Released Aug 19, 2019 DEX-DEG x86 64bit/Mac OS X - 11/05/19 22:54:29 Page 2
+Sensitivity analysis using LOOPS (SENSTRAN,SEQ=106)
+Sensitivity Part for trnsport
+
+
+  65   
+  66  Alias (i,ip), (j,jp);
+  67   
+  68  Scalar
+  69     sens    'sensitivity value'                    /  .3 /
+  70     pors    'put or save option save = 0 put = 1'  / 0   /
+  71     counter 'maximum number of problems'           / 4   /;
+  72   
+  73  Parameter report(*,ip,jp,i,j) 'summary results';
+  74  File      repdat 'sensitivity data report file';
+  75   
+  76  option limCol = 0, limRow = 0, solPrint = off;
+  77   
+  78  pors    = 0;    // 'write file'
+  79  counter = 2;    // 'set to inf to run all problems'
+  80   
+  81  if(pors,
+  82     repdat.nw =  5;
+  83     repdat.nd =  0;
+  84     repdat.lw = 11;
+  85     put repdat "low/high i          j                  x(i,j)" /;
+  86  );
+  87   
+  88  counter = 20;
+  89  loop((ip,jp)$counter, counter = counter - 1;
+  90     c(ip,jp) = c(ip,jp)*(1-sens);              // reduce cell
+  91     solve transport using lp minimizing z;     // solve model
+  92     if(pors,
+  93        put / "low      ",ip.tl,jp.tl;          // write
+  94        loop((i,j),                             // solution
+  95           put x.l(i,j);                        // one solve per line
+  96        );
+  97     else
+  98        report("low",ip,jp,i,j) = x.l(i,j);     // save results
+  99     );
+ 100     c(ip,jp) = c(ip,jp)/(1 - sens)*(1 + sens); // increase cell
+ 101     solve transport using lp minimizing z;     // solve model
+ 102     c(ip,jp) = c(ip,jp)/(1 + sens);            // reset cell
+ 103     if(pors,
+ 104        put / "high     ",ip.tl,jp.tl;          // write
+ 105        loop((i,j),                             // solution
+ 106           put x.l(i,j));                       // one solve per line
+ 107     else
+ 108        report("high",ip,jp,i,j) = x.l(i,j)     // save results
+ 109     );
+ 110     if(not pors,
+ 111        option  report:3:3:2;
+ 112        display report;
+ 113     );
+ 114  );
+
+
+COMPILATION TIME     =        0.001 SECONDS      3 MB  28.2.0 r750fa45 DEX-DEG
+GAMS 28.2.0  r750fa45 Released Aug 19, 2019 DEX-DEG x86 64bit/Mac OS X - 11/05/19 22:54:29 Page 3
+Sensitivity analysis using LOOPS (SENSTRAN,SEQ=106)
+Model Statistics    SOLVE transport Using LP From line 91
+
+
+LOOPS                                   ip   seattle
+                                        jp   new-york
+
+
+MODEL STATISTICS
+
+BLOCKS OF EQUATIONS           3     SINGLE EQUATIONS            6
+BLOCKS OF VARIABLES           2     SINGLE VARIABLES            7
+NON ZERO ELEMENTS            19
+
+
+GENERATION TIME      =        0.007 SECONDS      4 MB  28.2.0 r750fa45 DEX-DEG
+
+
+EXECUTION TIME       =        0.009 SECONDS      4 MB  28.2.0 r750fa45 DEX-DEG
+               L O O P S                 ip seattle
+                                         jp new-york
+
+GAMS 28.2.0  r750fa45 Released Aug 19, 2019 DEX-DEG x86 64bit/Mac OS X - 11/05/19 22:54:29 Page 4
+Sensitivity analysis using LOOPS (SENSTRAN,SEQ=106)
+Solution Report     SOLVE transport Using LP From line 91
+
+
+               S O L V E      S U M M A R Y
+
+     MODEL   transport           OBJECTIVE  z
+     TYPE    LP                  DIRECTION  MINIMIZE
+     SOLVER  CPLEX               FROM LINE  91
+
+**** SOLVER STATUS     1 Normal Completion         
+**** MODEL STATUS      1 Optimal                   
+**** OBJECTIVE VALUE              134.2125
+
+ RESOURCE USAGE, LIMIT          0.012      1000.000
+ ITERATION COUNT, LIMIT         4    2000000000
+
+IBM ILOG CPLEX   28.2.0 r750fa45 Released Aug 19, 2019 DEG x86 64bit/Mac OS X 
+Cplex 12.9.0.0
+
+Space for names approximately 0.00 Mb
+Use option 'names no' to turn use of names off
+LP status(1): optimal
+Cplex Time: 0.00sec (det. 0.01 ticks)
+Optimal solution found.
+Objective :         134.212500
+
+
+
+**** REPORT SUMMARY :        0     NONOPT
+                             0 INFEASIBLE
+                             0  UNBOUNDED
+GAMS 28.2.0  r750fa45 Released Aug 19, 2019 DEX-DEG x86 64bit/Mac OS X - 11/05/19 22:54:29 Page 5
+Sensitivity analysis using LOOPS (SENSTRAN,SEQ=106)
+Model Statistics    SOLVE transport Using LP From line 101
+
+
+LOOPS                                   ip   seattle
+                                        jp   new-york
+
+
+MODEL STATISTICS
+
+BLOCKS OF EQUATIONS           3     SINGLE EQUATIONS            6
+BLOCKS OF VARIABLES           2     SINGLE VARIABLES            7
+NON ZERO ELEMENTS            19
+
+
+GENERATION TIME      =        0.006 SECONDS      3 MB  28.2.0 r750fa45 DEX-DEG
+
+
+EXECUTION TIME       =        0.007 SECONDS      3 MB  28.2.0 r750fa45 DEX-DEG
+               L O O P S                 ip seattle
+                                         jp new-york
+
+GAMS 28.2.0  r750fa45 Released Aug 19, 2019 DEX-DEG x86 64bit/Mac OS X - 11/05/19 22:54:29 Page 6
+Sensitivity analysis using LOOPS (SENSTRAN,SEQ=106)
+Solution Report     SOLVE transport Using LP From line 101
+
+
+               S O L V E      S U M M A R Y
+
+     MODEL   transport           OBJECTIVE  z
+     TYPE    LP                  DIRECTION  MINIMIZE
+     SOLVER  CPLEX               FROM LINE  101
+
+**** SOLVER STATUS     1 Normal Completion         
+**** MODEL STATUS      1 Optimal                   
+**** OBJECTIVE VALUE              153.6750
+
+ RESOURCE USAGE, LIMIT          0.011      1000.000
+ ITERATION COUNT, LIMIT         2    2000000000
+
+IBM ILOG CPLEX   28.2.0 r750fa45 Released Aug 19, 2019 DEG x86 64bit/Mac OS X 
+Cplex 12.9.0.0
+
+Space for names approximately 0.00 Mb
+Use option 'names no' to turn use of names off
+LP status(1): optimal
+Cplex Time: 0.00sec (det. 0.01 ticks)
+Optimal solution found.
+Objective :         153.675000
+
+
+
+**** REPORT SUMMARY :        0     NONOPT
+                             0 INFEASIBLE
+                             0  UNBOUNDED
+GAMS 28.2.0  r750fa45 Released Aug 19, 2019 DEX-DEG x86 64bit/Mac OS X - 11/05/19 22:54:29 Page 7
+Sensitivity analysis using LOOPS (SENSTRAN,SEQ=106)
+E x e c u t i o n
+
+
+----    112 PARAMETER report  summary results
+
+                          seattle     seattle   san-diego   san-diego   san-diego
+                         new-york     chicago    new-york     chicago      topeka
+
+low .seattle.new-york     325.000      25.000                 275.000     275.000
+high.seattle.new-york                 300.000     325.000                 275.000
+
+GAMS 28.2.0  r750fa45 Released Aug 19, 2019 DEX-DEG x86 64bit/Mac OS X - 11/05/19 22:54:29 Page 8
+Sensitivity analysis using LOOPS (SENSTRAN,SEQ=106)
+Model Statistics    SOLVE transport Using LP From line 91
+
+
+LOOPS                                   ip   seattle
+                                        jp   chicago
+
+
+MODEL STATISTICS
+
+BLOCKS OF EQUATIONS           3     SINGLE EQUATIONS            6
+BLOCKS OF VARIABLES           2     SINGLE VARIABLES            7
+NON ZERO ELEMENTS            19
+
+
+GENERATION TIME      =        0.006 SECONDS      3 MB  28.2.0 r750fa45 DEX-DEG
+
+
+EXECUTION TIME       =        0.007 SECONDS      3 MB  28.2.0 r750fa45 DEX-DEG
+               L O O P S                 ip seattle
+                                         jp chicago
+
+GAMS 28.2.0  r750fa45 Released Aug 19, 2019 DEX-DEG x86 64bit/Mac OS X - 11/05/19 22:54:29 Page 9
+Sensitivity analysis using LOOPS (SENSTRAN,SEQ=106)
+Solution Report     SOLVE transport Using LP From line 91
+
+
+               S O L V E      S U M M A R Y
+
+     MODEL   transport           OBJECTIVE  z
+     TYPE    LP                  DIRECTION  MINIMIZE
+     SOLVER  CPLEX               FROM LINE  91
+
+**** SOLVER STATUS     1 Normal Completion         
+**** MODEL STATUS      1 Optimal                   
+**** OBJECTIVE VALUE              139.9050
+
+ RESOURCE USAGE, LIMIT          0.012      1000.000
+ ITERATION COUNT, LIMIT         1    2000000000
+
+IBM ILOG CPLEX   28.2.0 r750fa45 Released Aug 19, 2019 DEG x86 64bit/Mac OS X 
+Cplex 12.9.0.0
+
+Space for names approximately 0.00 Mb
+Use option 'names no' to turn use of names off
+LP status(1): optimal
+Cplex Time: 0.00sec (det. 0.01 ticks)
+Optimal solution found.
+Objective :         139.905000
+
+
+
+**** REPORT SUMMARY :        0     NONOPT
+                             0 INFEASIBLE
+                             0  UNBOUNDED
+GAMS 28.2.0  r750fa45 Released Aug 19, 2019 DEX-DEG x86 64bit/Mac OS X - 11/05/19 22:54:29 Page 10
+Sensitivity analysis using LOOPS (SENSTRAN,SEQ=106)
+Model Statistics    SOLVE transport Using LP From line 101
+
+
+LOOPS                                   ip   seattle
+                                        jp   chicago
+
+
+MODEL STATISTICS
+
+BLOCKS OF EQUATIONS           3     SINGLE EQUATIONS            6
+BLOCKS OF VARIABLES           2     SINGLE VARIABLES            7
+NON ZERO ELEMENTS            19
+
+
+GENERATION TIME      =        0.007 SECONDS      3 MB  28.2.0 r750fa45 DEX-DEG
+
+
+EXECUTION TIME       =        0.008 SECONDS      3 MB  28.2.0 r750fa45 DEX-DEG
+               L O O P S                 ip seattle
+                                         jp chicago
+
+GAMS 28.2.0  r750fa45 Released Aug 19, 2019 DEX-DEG x86 64bit/Mac OS X - 11/05/19 22:54:29 Page 11
+Sensitivity analysis using LOOPS (SENSTRAN,SEQ=106)
+Solution Report     SOLVE transport Using LP From line 101
+
+
+               S O L V E      S U M M A R Y
+
+     MODEL   transport           OBJECTIVE  z
+     TYPE    LP                  DIRECTION  MINIMIZE
+     SOLVER  CPLEX               FROM LINE  101
+
+**** SOLVER STATUS     1 Normal Completion         
+**** MODEL STATUS      1 Optimal                   
+**** OBJECTIVE VALUE              156.3750
+
+ RESOURCE USAGE, LIMIT          0.013      1000.000
+ ITERATION COUNT, LIMIT         2    2000000000
+
+IBM ILOG CPLEX   28.2.0 r750fa45 Released Aug 19, 2019 DEG x86 64bit/Mac OS X 
+Cplex 12.9.0.0
+
+Space for names approximately 0.00 Mb
+Use option 'names no' to turn use of names off
+LP status(1): optimal
+Cplex Time: 0.00sec (det. 0.01 ticks)
+Optimal solution found.
+Objective :         156.375000
+
+
+
+**** REPORT SUMMARY :        0     NONOPT
+                             0 INFEASIBLE
+                             0  UNBOUNDED
+GAMS 28.2.0  r750fa45 Released Aug 19, 2019 DEX-DEG x86 64bit/Mac OS X - 11/05/19 22:54:29 Page 12
+Sensitivity analysis using LOOPS (SENSTRAN,SEQ=106)
+E x e c u t i o n
+
+
+----    112 PARAMETER report  summary results
+
+                          seattle     seattle   san-diego   san-diego   san-diego
+                         new-york     chicago    new-york     chicago      topeka
+
+low .seattle.new-york     325.000      25.000                 275.000     275.000
+low .seattle.chicago                  300.000     325.000                 275.000
+high.seattle.new-york                 300.000     325.000                 275.000
+high.seattle.chicago      300.000                  25.000     300.000     275.000
+
+GAMS 28.2.0  r750fa45 Released Aug 19, 2019 DEX-DEG x86 64bit/Mac OS X - 11/05/19 22:54:29 Page 13
+Sensitivity analysis using LOOPS (SENSTRAN,SEQ=106)
+Model Statistics    SOLVE transport Using LP From line 91
+
+
+LOOPS                                   ip   seattle
+                                        jp   topeka
+
+
+MODEL STATISTICS
+
+BLOCKS OF EQUATIONS           3     SINGLE EQUATIONS            6
+BLOCKS OF VARIABLES           2     SINGLE VARIABLES            7
+NON ZERO ELEMENTS            19
+
+
+GENERATION TIME      =        0.006 SECONDS      3 MB  28.2.0 r750fa45 DEX-DEG
+
+
+EXECUTION TIME       =        0.007 SECONDS      3 MB  28.2.0 r750fa45 DEX-DEG
+               L O O P S                 ip seattle
+                                         jp topeka
+
+GAMS 28.2.0  r750fa45 Released Aug 19, 2019 DEX-DEG x86 64bit/Mac OS X - 11/05/19 22:54:29 Page 14
+Sensitivity analysis using LOOPS (SENSTRAN,SEQ=106)
+Solution Report     SOLVE transport Using LP From line 91
+
+
+               S O L V E      S U M M A R Y
+
+     MODEL   transport           OBJECTIVE  z
+     TYPE    LP                  DIRECTION  MINIMIZE
+     SOLVER  CPLEX               FROM LINE  91
+
+**** SOLVER STATUS     1 Normal Completion         
+**** MODEL STATUS      1 Optimal                   
+**** OBJECTIVE VALUE              152.2350
+
+ RESOURCE USAGE, LIMIT          0.012      1000.000
+ ITERATION COUNT, LIMIT         3    2000000000
+
+IBM ILOG CPLEX   28.2.0 r750fa45 Released Aug 19, 2019 DEG x86 64bit/Mac OS X 
+Cplex 12.9.0.0
+
+Space for names approximately 0.00 Mb
+Use option 'names no' to turn use of names off
+LP status(1): optimal
+Cplex Time: 0.00sec (det. 0.01 ticks)
+Optimal solution found.
+Objective :         152.235000
+
+
+
+**** REPORT SUMMARY :        0     NONOPT
+                             0 INFEASIBLE
+                             0  UNBOUNDED
+GAMS 28.2.0  r750fa45 Released Aug 19, 2019 DEX-DEG x86 64bit/Mac OS X - 11/05/19 22:54:29 Page 15
+Sensitivity analysis using LOOPS (SENSTRAN,SEQ=106)
+Model Statistics    SOLVE transport Using LP From line 101
+
+
+LOOPS                                   ip   seattle
+                                        jp   topeka
+
+
+MODEL STATISTICS
+
+BLOCKS OF EQUATIONS           3     SINGLE EQUATIONS            6
+BLOCKS OF VARIABLES           2     SINGLE VARIABLES            7
+NON ZERO ELEMENTS            19
+
+
+GENERATION TIME      =        0.005 SECONDS      3 MB  28.2.0 r750fa45 DEX-DEG
+
+
+EXECUTION TIME       =        0.006 SECONDS      3 MB  28.2.0 r750fa45 DEX-DEG
+               L O O P S                 ip seattle
+                                         jp topeka
+
+GAMS 28.2.0  r750fa45 Released Aug 19, 2019 DEX-DEG x86 64bit/Mac OS X - 11/05/19 22:54:29 Page 16
+Sensitivity analysis using LOOPS (SENSTRAN,SEQ=106)
+Solution Report     SOLVE transport Using LP From line 101
+
+
+               S O L V E      S U M M A R Y
+
+     MODEL   transport           OBJECTIVE  z
+     TYPE    LP                  DIRECTION  MINIMIZE
+     SOLVER  CPLEX               FROM LINE  101
+
+**** SOLVER STATUS     1 Normal Completion         
+**** MODEL STATUS      1 Optimal                   
+**** OBJECTIVE VALUE              153.6750
+
+ RESOURCE USAGE, LIMIT          0.010      1000.000
+ ITERATION COUNT, LIMIT         2    2000000000
+
+IBM ILOG CPLEX   28.2.0 r750fa45 Released Aug 19, 2019 DEG x86 64bit/Mac OS X 
+Cplex 12.9.0.0
+
+Space for names approximately 0.00 Mb
+Use option 'names no' to turn use of names off
+LP status(1): optimal
+Cplex Time: 0.00sec (det. 0.01 ticks)
+Optimal solution found.
+Objective :         153.675000
+
+
+
+**** REPORT SUMMARY :        0     NONOPT
+                             0 INFEASIBLE
+                             0  UNBOUNDED
+GAMS 28.2.0  r750fa45 Released Aug 19, 2019 DEX-DEG x86 64bit/Mac OS X - 11/05/19 22:54:29 Page 17
+Sensitivity analysis using LOOPS (SENSTRAN,SEQ=106)
+E x e c u t i o n
+
+
+----    112 PARAMETER report  summary results
+
+                          seattle     seattle     seattle   san-diego   san-diego   san-diego
+                         new-york     chicago      topeka    new-york     chicago      topeka
+
+low .seattle.new-york     325.000      25.000                             275.000     275.000
+low .seattle.chicago                  300.000                 325.000                 275.000
+low .seattle.topeka                    75.000     275.000     325.000     225.000
+high.seattle.new-york                 300.000                 325.000                 275.000
+high.seattle.chicago      300.000                              25.000     300.000     275.000
+high.seattle.topeka                   300.000                 325.000                 275.000
+
+GAMS 28.2.0  r750fa45 Released Aug 19, 2019 DEX-DEG x86 64bit/Mac OS X - 11/05/19 22:54:29 Page 18
+Sensitivity analysis using LOOPS (SENSTRAN,SEQ=106)
+Model Statistics    SOLVE transport Using LP From line 91
+
+
+LOOPS                                   ip   san-diego
+                                        jp   new-york
+
+
+MODEL STATISTICS
+
+BLOCKS OF EQUATIONS           3     SINGLE EQUATIONS            6
+BLOCKS OF VARIABLES           2     SINGLE VARIABLES            7
+NON ZERO ELEMENTS            19
+
+
+GENERATION TIME      =        0.007 SECONDS      3 MB  28.2.0 r750fa45 DEX-DEG
+
+
+EXECUTION TIME       =        0.008 SECONDS      3 MB  28.2.0 r750fa45 DEX-DEG
+               L O O P S                 ip san-diego
+                                         jp new-york
+
+GAMS 28.2.0  r750fa45 Released Aug 19, 2019 DEX-DEG x86 64bit/Mac OS X - 11/05/19 22:54:29 Page 19
+Sensitivity analysis using LOOPS (SENSTRAN,SEQ=106)
+Solution Report     SOLVE transport Using LP From line 91
+
+
+               S O L V E      S U M M A R Y
+
+     MODEL   transport           OBJECTIVE  z
+     TYPE    LP                  DIRECTION  MINIMIZE
+     SOLVER  CPLEX               FROM LINE  91
+
+**** SOLVER STATUS     1 Normal Completion         
+**** MODEL STATUS      1 Optimal                   
+**** OBJECTIVE VALUE              131.7375
+
+ RESOURCE USAGE, LIMIT          0.011      1000.000
+ ITERATION COUNT, LIMIT         1    2000000000
+
+IBM ILOG CPLEX   28.2.0 r750fa45 Released Aug 19, 2019 DEG x86 64bit/Mac OS X 
+Cplex 12.9.0.0
+
+Space for names approximately 0.00 Mb
+Use option 'names no' to turn use of names off
+LP status(1): optimal
+Cplex Time: 0.00sec (det. 0.01 ticks)
+Optimal solution found.
+Objective :         131.737500
+
+
+
+**** REPORT SUMMARY :        0     NONOPT
+                             0 INFEASIBLE
+                             0  UNBOUNDED
+GAMS 28.2.0  r750fa45 Released Aug 19, 2019 DEX-DEG x86 64bit/Mac OS X - 11/05/19 22:54:29 Page 20
+Sensitivity analysis using LOOPS (SENSTRAN,SEQ=106)
+Model Statistics    SOLVE transport Using LP From line 101
+
+
+LOOPS                                   ip   san-diego
+                                        jp   new-york
+
+
+MODEL STATISTICS
+
+BLOCKS OF EQUATIONS           3     SINGLE EQUATIONS            6
+BLOCKS OF VARIABLES           2     SINGLE VARIABLES            7
+NON ZERO ELEMENTS            19
+
+
+GENERATION TIME      =        0.004 SECONDS      3 MB  28.2.0 r750fa45 DEX-DEG
+
+
+EXECUTION TIME       =        0.006 SECONDS      3 MB  28.2.0 r750fa45 DEX-DEG
+               L O O P S                 ip san-diego
+                                         jp new-york
+
+GAMS 28.2.0  r750fa45 Released Aug 19, 2019 DEX-DEG x86 64bit/Mac OS X - 11/05/19 22:54:29 Page 21
+Sensitivity analysis using LOOPS (SENSTRAN,SEQ=106)
+Solution Report     SOLVE transport Using LP From line 101
+
+
+               S O L V E      S U M M A R Y
+
+     MODEL   transport           OBJECTIVE  z
+     TYPE    LP                  DIRECTION  MINIMIZE
+     SOLVER  CPLEX               FROM LINE  101
+
+**** SOLVER STATUS     1 Normal Completion         
+**** MODEL STATUS      1 Optimal                   
+**** OBJECTIVE VALUE              156.1500
+
+ RESOURCE USAGE, LIMIT          0.014      1000.000
+ ITERATION COUNT, LIMIT         3    2000000000
+
+IBM ILOG CPLEX   28.2.0 r750fa45 Released Aug 19, 2019 DEG x86 64bit/Mac OS X 
+Cplex 12.9.0.0
+
+Space for names approximately 0.00 Mb
+Use option 'names no' to turn use of names off
+LP status(1): optimal
+Cplex Time: 0.00sec (det. 0.01 ticks)
+Optimal solution found.
+Objective :         156.150000
+
+
+
+**** REPORT SUMMARY :        0     NONOPT
+                             0 INFEASIBLE
+                             0  UNBOUNDED
+GAMS 28.2.0  r750fa45 Released Aug 19, 2019 DEX-DEG x86 64bit/Mac OS X - 11/05/19 22:54:29 Page 22
+Sensitivity analysis using LOOPS (SENSTRAN,SEQ=106)
+E x e c u t i o n
+
+
+----    112 PARAMETER report  summary results
+
+                            seattle     seattle     seattle   san-diego   san-diego   san-diego
+                           new-york     chicago      topeka    new-york     chicago      topeka
+
+low .seattle  .new-york     325.000      25.000                             275.000     275.000
+low .seattle  .chicago                  300.000                 325.000                 275.000
+low .seattle  .topeka                    75.000     275.000     325.000     225.000
+low .san-diego.new-york                 300.000                 325.000                 275.000
+high.seattle  .new-york                 300.000                 325.000                 275.000
+high.seattle  .chicago      300.000                              25.000     300.000     275.000
+high.seattle  .topeka                   300.000                 325.000                 275.000
+high.san-diego.new-york     325.000      25.000                             275.000     275.000
+
+GAMS 28.2.0  r750fa45 Released Aug 19, 2019 DEX-DEG x86 64bit/Mac OS X - 11/05/19 22:54:29 Page 23
+Sensitivity analysis using LOOPS (SENSTRAN,SEQ=106)
+Model Statistics    SOLVE transport Using LP From line 91
+
+
+LOOPS                                   ip   san-diego
+                                        jp   chicago
+
+
+MODEL STATISTICS
+
+BLOCKS OF EQUATIONS           3     SINGLE EQUATIONS            6
+BLOCKS OF VARIABLES           2     SINGLE VARIABLES            7
+NON ZERO ELEMENTS            19
+
+
+GENERATION TIME      =        0.007 SECONDS      3 MB  28.2.0 r750fa45 DEX-DEG
+
+
+EXECUTION TIME       =        0.009 SECONDS      3 MB  28.2.0 r750fa45 DEX-DEG
+               L O O P S                 ip san-diego
+                                         jp chicago
+
+GAMS 28.2.0  r750fa45 Released Aug 19, 2019 DEX-DEG x86 64bit/Mac OS X - 11/05/19 22:54:29 Page 24
+Sensitivity analysis using LOOPS (SENSTRAN,SEQ=106)
+Solution Report     SOLVE transport Using LP From line 91
+
+
+               S O L V E      S U M M A R Y
+
+     MODEL   transport           OBJECTIVE  z
+     TYPE    LP                  DIRECTION  MINIMIZE
+     SOLVER  CPLEX               FROM LINE  91
+
+**** SOLVER STATUS     1 Normal Completion         
+**** MODEL STATUS      1 Optimal                   
+**** OBJECTIVE VALUE              141.7950
+
+ RESOURCE USAGE, LIMIT          0.012      1000.000
+ ITERATION COUNT, LIMIT         1    2000000000
+
+IBM ILOG CPLEX   28.2.0 r750fa45 Released Aug 19, 2019 DEG x86 64bit/Mac OS X 
+Cplex 12.9.0.0
+
+Space for names approximately 0.00 Mb
+Use option 'names no' to turn use of names off
+LP status(1): optimal
+Cplex Time: 0.00sec (det. 0.01 ticks)
+Optimal solution found.
+Objective :         141.795000
+
+
+
+**** REPORT SUMMARY :        0     NONOPT
+                             0 INFEASIBLE
+                             0  UNBOUNDED
+GAMS 28.2.0  r750fa45 Released Aug 19, 2019 DEX-DEG x86 64bit/Mac OS X - 11/05/19 22:54:29 Page 25
+Sensitivity analysis using LOOPS (SENSTRAN,SEQ=106)
+Model Statistics    SOLVE transport Using LP From line 101
+
+
+LOOPS                                   ip   san-diego
+                                        jp   chicago
+
+
+MODEL STATISTICS
+
+BLOCKS OF EQUATIONS           3     SINGLE EQUATIONS            6
+BLOCKS OF VARIABLES           2     SINGLE VARIABLES            7
+NON ZERO ELEMENTS            19
+
+
+GENERATION TIME      =        0.006 SECONDS      3 MB  28.2.0 r750fa45 DEX-DEG
+
+
+EXECUTION TIME       =        0.007 SECONDS      3 MB  28.2.0 r750fa45 DEX-DEG
+               L O O P S                 ip san-diego
+                                         jp chicago
+
+GAMS 28.2.0  r750fa45 Released Aug 19, 2019 DEX-DEG x86 64bit/Mac OS X - 11/05/19 22:54:29 Page 26
+Sensitivity analysis using LOOPS (SENSTRAN,SEQ=106)
+Solution Report     SOLVE transport Using LP From line 101
+
+
+               S O L V E      S U M M A R Y
+
+     MODEL   transport           OBJECTIVE  z
+     TYPE    LP                  DIRECTION  MINIMIZE
+     SOLVER  CPLEX               FROM LINE  101
+
+**** SOLVER STATUS     1 Normal Completion         
+**** MODEL STATUS      1 Optimal                   
+**** OBJECTIVE VALUE              153.6750
+
+ RESOURCE USAGE, LIMIT          0.011      1000.000
+ ITERATION COUNT, LIMIT         2    2000000000
+
+IBM ILOG CPLEX   28.2.0 r750fa45 Released Aug 19, 2019 DEG x86 64bit/Mac OS X 
+Cplex 12.9.0.0
+
+Space for names approximately 0.00 Mb
+Use option 'names no' to turn use of names off
+LP status(1): optimal
+Cplex Time: 0.00sec (det. 0.01 ticks)
+Optimal solution found.
+Objective :         153.675000
+
+
+
+**** REPORT SUMMARY :        0     NONOPT
+                             0 INFEASIBLE
+                             0  UNBOUNDED
+GAMS 28.2.0  r750fa45 Released Aug 19, 2019 DEX-DEG x86 64bit/Mac OS X - 11/05/19 22:54:29 Page 27
+Sensitivity analysis using LOOPS (SENSTRAN,SEQ=106)
+E x e c u t i o n
+
+
+----    112 PARAMETER report  summary results
+
+                            seattle     seattle     seattle   san-diego   san-diego   san-diego
+                           new-york     chicago      topeka    new-york     chicago      topeka
+
+low .seattle  .new-york     325.000      25.000                             275.000     275.000
+low .seattle  .chicago                  300.000                 325.000                 275.000
+low .seattle  .topeka                    75.000     275.000     325.000     225.000
+low .san-diego.new-york                 300.000                 325.000                 275.000
+low .san-diego.chicago      325.000                                         300.000     275.000
+high.seattle  .new-york                 300.000                 325.000                 275.000
+high.seattle  .chicago      300.000                              25.000     300.000     275.000
+high.seattle  .topeka                   300.000                 325.000                 275.000
+high.san-diego.new-york     325.000      25.000                             275.000     275.000
+high.san-diego.chicago       50.000     300.000                 275.000                 275.000
+
+GAMS 28.2.0  r750fa45 Released Aug 19, 2019 DEX-DEG x86 64bit/Mac OS X - 11/05/19 22:54:29 Page 28
+Sensitivity analysis using LOOPS (SENSTRAN,SEQ=106)
+Model Statistics    SOLVE transport Using LP From line 91
+
+
+LOOPS                                   ip   san-diego
+                                        jp   topeka
+
+
+MODEL STATISTICS
+
+BLOCKS OF EQUATIONS           3     SINGLE EQUATIONS            6
+BLOCKS OF VARIABLES           2     SINGLE VARIABLES            7
+NON ZERO ELEMENTS            19
+
+
+GENERATION TIME      =        0.005 SECONDS      3 MB  28.2.0 r750fa45 DEX-DEG
+
+
+EXECUTION TIME       =        0.006 SECONDS      3 MB  28.2.0 r750fa45 DEX-DEG
+               L O O P S                 ip san-diego
+                                         jp topeka
+
+GAMS 28.2.0  r750fa45 Released Aug 19, 2019 DEX-DEG x86 64bit/Mac OS X - 11/05/19 22:54:29 Page 29
+Sensitivity analysis using LOOPS (SENSTRAN,SEQ=106)
+Solution Report     SOLVE transport Using LP From line 91
+
+
+               S O L V E      S U M M A R Y
+
+     MODEL   transport           OBJECTIVE  z
+     TYPE    LP                  DIRECTION  MINIMIZE
+     SOLVER  CPLEX               FROM LINE  91
+
+**** SOLVER STATUS     1 Normal Completion         
+**** MODEL STATUS      1 Optimal                   
+**** OBJECTIVE VALUE              143.2800
+
+ RESOURCE USAGE, LIMIT          0.010      1000.000
+ ITERATION COUNT, LIMIT         0    2000000000
+
+IBM ILOG CPLEX   28.2.0 r750fa45 Released Aug 19, 2019 DEG x86 64bit/Mac OS X 
+Cplex 12.9.0.0
+
+Space for names approximately 0.00 Mb
+Use option 'names no' to turn use of names off
+LP status(1): optimal
+Cplex Time: 0.00sec (det. 0.01 ticks)
+Optimal solution found.
+Objective :         143.280000
+
+
+
+**** REPORT SUMMARY :        0     NONOPT
+                             0 INFEASIBLE
+                             0  UNBOUNDED
+GAMS 28.2.0  r750fa45 Released Aug 19, 2019 DEX-DEG x86 64bit/Mac OS X - 11/05/19 22:54:29 Page 30
+Sensitivity analysis using LOOPS (SENSTRAN,SEQ=106)
+Model Statistics    SOLVE transport Using LP From line 101
+
+
+LOOPS                                   ip   san-diego
+                                        jp   topeka
+
+
+MODEL STATISTICS
+
+BLOCKS OF EQUATIONS           3     SINGLE EQUATIONS            6
+BLOCKS OF VARIABLES           2     SINGLE VARIABLES            7
+NON ZERO ELEMENTS            19
+
+
+GENERATION TIME      =        0.006 SECONDS      3 MB  28.2.0 r750fa45 DEX-DEG
+
+
+EXECUTION TIME       =        0.008 SECONDS      3 MB  28.2.0 r750fa45 DEX-DEG
+               L O O P S                 ip san-diego
+                                         jp topeka
+
+GAMS 28.2.0  r750fa45 Released Aug 19, 2019 DEX-DEG x86 64bit/Mac OS X - 11/05/19 22:54:29 Page 31
+Sensitivity analysis using LOOPS (SENSTRAN,SEQ=106)
+Solution Report     SOLVE transport Using LP From line 101
+
+
+               S O L V E      S U M M A R Y
+
+     MODEL   transport           OBJECTIVE  z
+     TYPE    LP                  DIRECTION  MINIMIZE
+     SOLVER  CPLEX               FROM LINE  101
+
+**** SOLVER STATUS     1 Normal Completion         
+**** MODEL STATUS      1 Optimal                   
+**** OBJECTIVE VALUE              163.9800
+
+ RESOURCE USAGE, LIMIT          0.011      1000.000
+ ITERATION COUNT, LIMIT         1    2000000000
+
+IBM ILOG CPLEX   28.2.0 r750fa45 Released Aug 19, 2019 DEG x86 64bit/Mac OS X 
+Cplex 12.9.0.0
+
+Space for names approximately 0.00 Mb
+Use option 'names no' to turn use of names off
+LP status(1): optimal
+Cplex Time: 0.00sec (det. 0.01 ticks)
+Optimal solution found.
+Objective :         163.980000
+
+
+
+**** REPORT SUMMARY :        0     NONOPT
+                             0 INFEASIBLE
+                             0  UNBOUNDED
+GAMS 28.2.0  r750fa45 Released Aug 19, 2019 DEX-DEG x86 64bit/Mac OS X - 11/05/19 22:54:29 Page 32
+Sensitivity analysis using LOOPS (SENSTRAN,SEQ=106)
+E x e c u t i o n
+
+
+----    112 PARAMETER report  summary results
+
+                            seattle     seattle     seattle   san-diego   san-diego   san-diego
+                           new-york     chicago      topeka    new-york     chicago      topeka
+
+low .seattle  .new-york     325.000      25.000                             275.000     275.000
+low .seattle  .chicago                  300.000                 325.000                 275.000
+low .seattle  .topeka                    75.000     275.000     325.000     225.000
+low .san-diego.new-york                 300.000                 325.000                 275.000
+low .san-diego.chicago      325.000                                         300.000     275.000
+low .san-diego.topeka        50.000     300.000                 275.000                 275.000
+high.seattle  .new-york                 300.000                 325.000                 275.000
+high.seattle  .chicago      300.000                              25.000     300.000     275.000
+high.seattle  .topeka                   300.000                 325.000                 275.000
+high.san-diego.new-york     325.000      25.000                             275.000     275.000
+high.san-diego.chicago       50.000     300.000                 275.000                 275.000
+high.san-diego.topeka                   300.000      50.000     325.000                 225.000
+
+
+
+EXECUTION TIME       =        0.002 SECONDS      3 MB  28.2.0 r750fa45 DEX-DEG
+
+
+USER: Course License Advanced Analytics with MathematG190618/0001AO-GEN
+      The University of Edinburgh - Business School               DCE66
+      License for teaching and research at degree granting institutions
+
+
+**** FILE SUMMARY
+
+Input      /Users/victor_medina/OneDrive - University of Edinburgh/CMSE11356/wk8/tut_3_1_wk8.gms
+Output     /Users/victor_medina/OneDrive - University of Edinburgh/CMSE11356/wk8/tut_3_1_wk8.lst
